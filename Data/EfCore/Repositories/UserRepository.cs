@@ -1,7 +1,9 @@
+using Core.Interfaces.Data.Repository;
+
 namespace Data.EfCore.Repositories
 {
-    public class UserRepository
+    public class UserRepository: IUserRepository
     {
-        
+
     }
 }

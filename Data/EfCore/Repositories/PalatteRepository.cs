@@ -1,7 +1,9 @@
+using Core.Interfaces.Data.Repository;
+
 namespace Data.EfCore.Repositories
 {
-    public class PalatteRepository
+    public class PalatteRepository :IPalatteRepository
     {
-        
+
     }
 }
