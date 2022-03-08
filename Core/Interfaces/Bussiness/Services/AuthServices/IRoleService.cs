@@ -1,7 +1,10 @@
+using Core.Interfaces.Bussiness.GenericService;
+using DTOs.Concrete.AuthDtos.RoleDtos;
+
 namespace Core.Interfaces.Bussiness.Services.AuthServices
 {
-    public interface IRoleService
+    public interface IRoleService : IGenericService<RoleGenericDto>
     {
-         
+
     }
 }
