@@ -11,7 +11,7 @@ namespace Core.Entities
         public DateTime? DateOfBirth { get; set; }
         public string? UserName { get; set; }
         public string? PhoneNumber { get; set; }
-        public string? Image { get; set; }
+        public byte[]? Image { get; set; }
         public DateTime? CreatedAt { get; set; }
         public List<UserRole>? UserRoles { get; set; }
 
