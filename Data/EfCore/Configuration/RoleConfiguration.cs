@@ -8,7 +8,10 @@ namespace Data.EfCore.Configuration
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(i => i.Id);
+            builder.Property(i => i.Name).HasMaxLength(50).IsRequired();
+            builder.Property(i => i.Description).HasMaxLength(200);
+            builder.HasMany(i => i.UserRoles).WithOne(i => i.Role).HasForeignKey(i => i.RoleId);
         }
     }
 }

@@ -8,7 +8,12 @@ namespace Data.EfCore.Configuration
     {
         public void Configure(EntityTypeBuilder<ColorPalatte> builder)
         {
-            throw new NotImplementedException();
+            builder.HasKey(i => new {
+                i.ColorId,
+                i.PalatteId
+            });
+            builder.HasOne(i=> i.Color).WithMany(i=> i.ColorPalatte).HasForeignKey(i=> i.ColorId);
+            builder.HasOne(i=> i.Palatte).WithMany(i=> i.ColorPalattes).HasForeignKey(i=> i.PalatteId);
         }
     }
 }
