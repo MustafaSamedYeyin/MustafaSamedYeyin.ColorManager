@@ -1,8 +1,9 @@
 using System;
+using Core.Entities.Interface;
 
 namespace Core.Entities
 {
-    public class Color
+    public class Color: IEntity
     {
         public int Id { get; set; }
         public string? Hex { get; set; }

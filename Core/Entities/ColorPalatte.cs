@@ -1,8 +1,9 @@
 using System;
+using Core.Entities.Interface;
 
 namespace Core.Entities
 {
-    public class ColorPalatte
+    public class ColorPalatte: IEntity
     {
         public Color? Color { get; set; }
         public int ColorId { get; set; }

@@ -1,8 +1,9 @@
 using System;
+using Core.Entities.Interface;
 
 namespace Core.Entities
 {
-    public class PalatteCategory
+    public class PalatteCategory: IEntity
     {
         public Category? Category { get; set; }
         public int CategoryId { get; set; }
