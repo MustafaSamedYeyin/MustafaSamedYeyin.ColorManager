@@ -8,7 +8,7 @@ namespace Core.Interfaces.Bussiness.GenericService
         Task<TDTO> Add(TDTO dto);
         TDTO Update(TDTO dto);
         void Delete(TDTO dto);
-        Task<TDTO> GetById(TDTO dto);
+        Task<TDTO> GetByIdAsync(int id);
         Task<IEnumerable<TDTO>> GetAll();
     }
 }

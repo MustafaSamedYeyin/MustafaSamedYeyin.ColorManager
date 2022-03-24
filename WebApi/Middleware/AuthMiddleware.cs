@@ -20,8 +20,8 @@ namespace WebApi.Middleware
         {
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
             int userId;
-            if (token == null)
-            { 
+            if (token != null)
+            {
                 var tokenHandler = ValidateToken(token);
                 userId = GetUserIdFromJWT(tokenHandler);
                 attachUserToContext(context, userService,userId);
@@ -29,15 +29,25 @@ namespace WebApi.Middleware
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IUserService userService, int userId)
+        private async Task attachUserToContext(HttpContext context, IUserService userService, int userId)
         {
             try
             {
                 // attach user to context on successful jwt validation
-                context.Items["User"] = userService.GetById(userId);
+                var user =  await userService.GetByIdAsync(userId);
+
+                Console.WriteLine(user.Id);
+                context.Items["User"] = user;
             }
-            catch
+            catch(Exception ex)
             {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.StackTrace);
+                Console.WriteLine(ex.InnerException);
+                Console.WriteLine(ex.TargetSite);
+                Console.WriteLine(ex.Data);
+                Console.WriteLine(ex.HelpLink);
+                Console.WriteLine(ex.Source);
                 // do nothing if jwt validation fails
                 // user is not attached to context so request won't have access to secure routes
             }
@@ -55,8 +65,8 @@ namespace WebApi.Middleware
             {
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(key),
-                ValidateIssuer = true,
-                ValidateAudience = true,
+                ValidateIssuer = false,
+                ValidateAudience = false,
                 // set clockskew to zero so tokens expire exactly at token expiration time (instead of 5 minutes later)
                 ClockSkew = TimeSpan.Zero
             }, out SecurityToken validatedToken);

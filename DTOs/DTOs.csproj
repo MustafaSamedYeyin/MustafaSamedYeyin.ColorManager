@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Concrete\ServiceDtos\CategoryDtos\CRUD\" />
+    <Folder Include="Concrete\ServiceDtos\PalatteDtos\CRUD\" />
+  </ItemGroup>
+
 </Project>

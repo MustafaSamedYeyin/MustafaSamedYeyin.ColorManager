@@ -5,43 +5,41 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Interfaces.Bussiness.Auth;
+using DTOs.Concrete.AuthDtos;
 using DTOs.Concrete.AuthDtos.UserDtos.CRUD;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using WebApi.JwtGenerator.Interface;
 
 namespace WebApi
 {
-    public class HomeController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class HomeController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private readonly IJwtGenerator _jwtGenerator;
+        private readonly IAuthService _authService;
 
-        public HomeController(IConfiguration config)
+        public HomeController(IConfiguration config, IJwtGenerator jwtGenerator, IAuthService authService)
         {
             _config = config;
+            _jwtGenerator = jwtGenerator;
+            _authService = authService;
         }
+        [HttpPost]
+        [Route("[action]")]
+        public async Task Register(RegisterDto registerDto)
+        {
+            await _authService.RegisterAsync(registerDto);
 
-        public HomeController()
-        {
-                
         }
-        public IActionResult Register()
+        [HttpGet]
+        [Route("[action]")]
+        public async Task<string> Login(GetUserDto getUserDto)
         {
-            return View();
-        }
-        public string Login(GetUserDto getUserDto)
-        {
-                
-                // generate token that is valid for 7 days
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.ASCII.GetBytes(_config["AppSettings:Secret"]);
-                var tokenDescriptor = new SecurityTokenDescriptor
-                {
-                    Subject = new ClaimsIdentity(new[]{ new Claim("id", user.Id.ToString()) }),
-                    Expires = DateTime.UtcNow.AddDays(7),
-                    SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-                };
-                var token = tokenHandler.CreateToken(tokenDescriptor);
-                return tokenHandler.WriteToken(token);
+            return await _jwtGenerator.JwtGenerate(getUserDto);
         }
     }
 }

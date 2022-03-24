@@ -5,6 +5,6 @@ namespace Core.Interfaces.Data.Repository
 {
     public interface IRoleRepository
     {
-        Task<Role> CreateRole(string RoleId);
+        Task<Role> CreateRole(Role role);
     }
 }

@@ -15,6 +15,7 @@ namespace Core.Entities
         public byte[]? Image { get; set; }
         public DateTime? CreatedAt { get; set; }
         public List<UserRole>? UserRoles { get; set; }
+        public List<Category>? Categories { get; set; }
 
     }
 }

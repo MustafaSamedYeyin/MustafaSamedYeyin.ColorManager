@@ -8,5 +8,7 @@ namespace Core.Entities
         public int Id { get; set; }
         public string? Name { get; set; }
         public List<PalatteCategory>? PalatteCategories { get; set; }
+        public User User{ get; set; }
+        public int  UserId{ get; set; }
     }
 }

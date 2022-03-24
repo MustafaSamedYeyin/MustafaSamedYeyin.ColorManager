@@ -21,12 +21,15 @@ namespace Bussiness.GenericService
         public async Task<TDTO> Add(TDTO dto)
         {
             await _dbset.AddAsync(Mapping.EfMap().Map<TEntity>(dto));
+            await _context.SaveChangesAsync();
             return dto;
         }
 
         public void Delete(TDTO dto)
         {
             _dbset.Remove(Mapping.EfMap().Map<TEntity>(dto));
+            _context.SaveChanges();
+
         }
 
         public async Task<IEnumerable<TDTO>> GetAll()
@@ -34,9 +37,9 @@ namespace Bussiness.GenericService
             return Mapping.EfMap().Map<IEnumerable<TDTO>>(await _dbset.ToListAsync());
         }
 
-        public async Task<TDTO> GetById(TDTO dto)
+        public async Task<TDTO> GetByIdAsync(int id)
         {
-            var entity =  await _dbset.FindAsync(Mapping.EfMap().Map<TEntity>(dto));
+            var entity =  await  _context.Set<TEntity>().FindAsync(id);
             if (entity!=null)
             {
                 return Mapping.EfMap().Map<TDTO>(entity);
@@ -51,6 +54,7 @@ namespace Bussiness.GenericService
         public TDTO Update(TDTO dto)
         {
             _dbset.Update(Mapping.EfMap().Map<TEntity>(dto));
+            _context.SaveChanges();
             return dto;
         }
     }

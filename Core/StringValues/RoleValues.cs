@@ -8,10 +8,10 @@ namespace Core.StringValues
 {
     public class RoleValues
     {
-        public string Admin { get; set; } = "Admin";
-        public string Moderator { get; set; } = "Moderator";
-        public string Designer { get; set; } = "Designer";
-        public string Viewer { get; set; } = "Viewer";
+        public static string Admin { get; set; } = "Admin";
+        public static string Moderator { get; set; } = "Moderator";
+        public static string Designer { get; set; } = "Designer";
+        public static string Viewer { get; set; } = "Viewer";
 
     }
 }

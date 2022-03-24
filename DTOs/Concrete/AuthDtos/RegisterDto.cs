@@ -9,5 +9,7 @@ namespace DTOs.Concrete.AuthDtos
 {
     public class RegisterDto: IDto
     {
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }
